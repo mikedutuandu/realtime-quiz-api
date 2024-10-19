@@ -1,0 +1,31 @@
+###1. install nginx###
+https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-22-04
+
+
+sudo systemctl start nginx
+sudo systemctl restart nginx
+systemctl status nginx
+sudo systemctl stop nginx
+
+###2.2
+vi /etc/nginx/sites-available/quiz-api.mikedutuandu.com.conf
+sudo ln -s /etc/nginx/sites-available/quiz-api.mikedutuandu.com.conf /etc/nginx/sites-enabled/
+
+###2.3
+go go DNS point domain to this ip server
+
+###2.4
+sudo certbot --nginx
+
+https://certbot.eff.org/instructions?ws=nginx&os=ubuntufocal
+sudo tail -f /var/log/letsencrypt/letsencrypt.
+
+
+sudo nginx -t
+sudo systemctl restart nginx
+sudo systemctl status nginx
+
+
+###3. view log
+tail -f /var/log/nginx/access.log
+tail -f /var/log/nginx/error.log
