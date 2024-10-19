@@ -1,0 +1,186 @@
+{
+    "taskDefinitionArn": "arn:aws:ecs:ap-southeast-1:803036668764:task-definition/quizStack11quizEcsTaskDefCron4C6B4422:1",
+    "containerDefinitions": [
+        {
+            "name": "quiz-cron",
+            "image": "803036668764.dkr.ecr.ap-southeast-1.amazonaws.com/quiz-api:latest",
+            "cpu": 256,
+            "memory": 512,
+            "links": [],
+            "portMappings": [],
+            "essential": true,
+            "entryPoint": [],
+            "command": [],
+            "environment": [
+                {
+                    "name": "IS_CRON_JOB",
+                    "value": "true"
+                }
+            ],
+            "environmentFiles": [],
+            "mountPoints": [],
+            "volumesFrom": [],
+            "secrets": [
+                {
+                    "name": "NODE_ENV",
+                    "valueFrom": "arn:aws:secretsmanager:ap-southeast-1:803036668764:secret:quizApiEnv:NODE_ENV::"
+                },
+                {
+                    "name": "APP_NAME",
+                    "valueFrom": "arn:aws:secretsmanager:ap-southeast-1:803036668764:secret:quizApiEnv:APP_NAME::"
+                },
+                {
+                    "name": "APP_HOST",
+                    "valueFrom": "arn:aws:secretsmanager:ap-southeast-1:803036668764:secret:quizApiEnv:APP_HOST::"
+                },
+                {
+                    "name": "APP_PORT",
+                    "valueFrom": "arn:aws:secretsmanager:ap-southeast-1:803036668764:secret:quizApiEnv:APP_PORT::"
+                },
+                {
+                    "name": "APP_LOGGER_LEVEL",
+                    "valueFrom": "arn:aws:secretsmanager:ap-southeast-1:803036668764:secret:quizApiEnv:APP_LOGGER_LEVEL::"
+                },
+                {
+                    "name": "APP_CORS_ORIGIN",
+                    "valueFrom": "arn:aws:secretsmanager:ap-southeast-1:803036668764:secret:quizApiEnv:APP_CORS_ORIGIN::"
+                },
+                {
+                    "name": "TYPEORM_CONNECTION",
+                    "valueFrom": "arn:aws:secretsmanager:ap-southeast-1:803036668764:secret:quizApiEnv:TYPEORM_CONNECTION::"
+                },
+                {
+                    "name": "TYPEORM_HOST",
+                    "valueFrom": "arn:aws:secretsmanager:ap-southeast-1:803036668764:secret:quizApiEnv:TYPEORM_HOST::"
+                },
+                {
+                    "name": "TYPEORM_PORT",
+                    "valueFrom": "arn:aws:secretsmanager:ap-southeast-1:803036668764:secret:quizApiEnv:TYPEORM_PORT::"
+                },
+                {
+                    "name": "TYPEORM_USERNAME",
+                    "valueFrom": "arn:aws:secretsmanager:ap-southeast-1:803036668764:secret:quizApiEnv:TYPEORM_USERNAME::"
+                },
+                {
+                    "name": "TYPEORM_PASSWORD",
+                    "valueFrom": "arn:aws:secretsmanager:ap-southeast-1:803036668764:secret:quizApiEnv:TYPEORM_PASSWORD::"
+                },
+                {
+                    "name": "TYPEORM_DATABASE",
+                    "valueFrom": "arn:aws:secretsmanager:ap-southeast-1:803036668764:secret:quizApiEnv:TYPEORM_DATABASE::"
+                },
+                {
+                    "name": "TYPEORM_MIGRATIONS_RUN",
+                    "valueFrom": "arn:aws:secretsmanager:ap-southeast-1:803036668764:secret:quizApiEnv:TYPEORM_MIGRATIONS_RUN::"
+                },
+                {
+                    "name": "TYPEORM_LOGGING",
+                    "valueFrom": "arn:aws:secretsmanager:ap-southeast-1:803036668764:secret:quizApiEnv:TYPEORM_LOGGING::"
+                },
+                {
+                    "name": "TYPEORM_SYNCHRONIZE",
+                    "valueFrom": "arn:aws:secretsmanager:ap-southeast-1:803036668764:secret:quizApiEnv:TYPEORM_SYNCHRONIZE::"
+                },
+                {
+                    "name": "TYPEORM_DROP_SCHEMA",
+                    "valueFrom": "arn:aws:secretsmanager:ap-southeast-1:803036668764:secret:quizApiEnv:TYPEORM_DROP_SCHEMA::"
+                },
+                {
+                    "name": "APP_JWT_PUBLIC_KEY_BASE64",
+                    "valueFrom": "arn:aws:secretsmanager:ap-southeast-1:803036668764:secret:quizApiEnv:APP_JWT_PUBLIC_KEY_BASE64::"
+                },
+                {
+                    "name": "APP_JWT_PRIVATE_KEY_BASE64",
+                    "valueFrom": "arn:aws:secretsmanager:ap-southeast-1:803036668764:secret:quizApiEnv:APP_JWT_PRIVATE_KEY_BASE64::"
+                },
+                {
+                    "name": "APP_JWT_EXPIRES",
+                    "valueFrom": "arn:aws:secretsmanager:ap-southeast-1:803036668764:secret:quizApiEnv:APP_JWT_EXPIRES::"
+                },
+                {
+                    "name": "MAILGUN_DOMAIN",
+                    "valueFrom": "arn:aws:secretsmanager:ap-southeast-1:803036668764:secret:quizApiEnv:MAILGUN_DOMAIN::"
+                },
+                {
+                    "name": "MAILGUN_API_KEY",
+                    "valueFrom": "arn:aws:secretsmanager:ap-southeast-1:803036668764:secret:quizApiEnv:MAILGUN_API_KEY::"
+                },
+                {
+                    "name": "FROM_EMAIL",
+                    "valueFrom": "arn:aws:secretsmanager:ap-southeast-1:803036668764:secret:quizApiEnv:FROM_EMAIL::"
+                },
+                {
+                    "name": "REDIS_URL",
+                    "valueFrom": "arn:aws:secretsmanager:ap-southeast-1:803036668764:secret:quizApiEnv:REDIS_URL::"
+                },
+                {
+                    "name": "SWAGGER_ENABLE",
+                    "valueFrom": "arn:aws:secretsmanager:ap-southeast-1:803036668764:secret:quizApiEnv:SWAGGER_ENABLE::"
+                }
+            ],
+            "dnsServers": [],
+            "dnsSearchDomains": [],
+            "extraHosts": [],
+            "dockerSecurityOptions": [],
+            "dockerLabels": {},
+            "ulimits": [],
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-group": "quizStack11-quizEcsTaskDefCronquizContainerCronLogGroup8CB14464-3rufR6opSd2q",
+                    "awslogs-region": "ap-southeast-1",
+                    "awslogs-stream-prefix": "quizLogsCron"
+                },
+                "secretOptions": []
+            },
+            "systemControls": []
+        }
+    ],
+    "family": "quizStack11quizEcsTaskDefCron4C6B4422",
+    "taskRoleArn": "arn:aws:iam::803036668764:role/quizStack11-quizRole684E83E2-1IVXURIMLQ1BR",
+    "executionRoleArn": "arn:aws:iam::803036668764:role/quizStack11-quizRole684E83E2-1IVXURIMLQ1BR",
+    "networkMode": "bridge",
+    "revision": 1,
+    "volumes": [],
+    "status": "ACTIVE",
+    "requiresAttributes": [
+        {
+            "name": "com.amazonaws.ecs.capability.logging-driver.awslogs"
+        },
+        {
+            "name": "ecs.capability.execution-role-awslogs"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.ecr-auth"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.19"
+        },
+        {
+            "name": "ecs.capability.secrets.asm.environment-variables"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.17"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.task-iam-role"
+        },
+        {
+            "name": "ecs.capability.execution-role-ecr-pull"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.18"
+        }
+    ],
+    "placementConstraints": [],
+    "compatibilities": [
+        "EXTERNAL",
+        "EC2"
+    ],
+    "requiresCompatibilities": [
+        "EC2"
+    ],
+    "registeredAt": "2023-02-18T04:34:13.873Z",
+    "registeredBy": "arn:aws:sts::803036668764:assumed-role/cdk-hnb659fds-cfn-exec-role-803036668764-ap-southeast-1/AWSCloudFormation",
+    "tags": []
+}

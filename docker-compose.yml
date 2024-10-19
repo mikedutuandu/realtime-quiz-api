@@ -1,0 +1,55 @@
+version: '3'
+
+volumes:
+  quiz_data: {}
+
+services:
+  quiz-api:
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./
+    env_file:
+      - ./.env.dev
+    restart: always
+    volumes:
+      - /app/node_modules
+      - ./:/app
+    depends_on:
+      - quiz-db
+    ports:
+      - '4001:4001'
+    networks:
+      - quiz-dev
+  quiz-db:
+    image: mysql:8.0
+    volumes:
+      - quiz_data:/var/lib/mysql
+    container_name: 'quiz-db'
+    environment:
+      MYSQL_ROOT_PASSWORD: 'iMONOdsVSYlDxbw'
+      MYSQL_DATABASE: dev
+      MYSQL_USER: dev
+      MYSQL_PASSWORD: 'iMONOdsVSYlDxbw'
+    ports:
+      - '33066:3306'
+    logging:
+      options:
+        max-file: '2'
+        max-size: 10m
+    command: ['mysqld', '--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci']
+    networks:
+      - quiz-dev
+  quiz-redis:
+    image: redis:6.0-alpine
+    container_name: 'quiz-redis'
+    ports:
+      - '63799:6379'
+    logging:
+      options:
+        max-file: '2'
+        max-size: 10m
+    networks:
+      - quiz-dev
+
+networks:
+  quiz-dev:

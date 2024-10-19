@@ -1,0 +1,61 @@
+{
+  "include": [
+    "src",
+    "@types",
+  ],
+  "exclude": [
+    "dist",
+    "node_modules"
+  ],
+  "compilerOptions": {
+    "alwaysStrict": true,
+    "module": "commonjs",
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "ES2022",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "incremental": true,
+    "skipLibCheck": true,
+    "strictNullChecks": false,
+    "noImplicitAny": false,
+    "strictBindCallApply": false,
+    "forceConsistentCasingInFileNames": false,
+    "noFallthroughCasesInSwitch": false,
+    "paths": {
+      "#configs": [
+        "src/configs"
+      ],
+      "#configs/*": [
+        "src/configs/*"
+      ],
+      "#constants/*": [
+        "src/constants/*"
+      ],
+      "#pipes": [
+        "src/pipes"
+      ],
+      "#interceptors": [
+        "src/common/interceptors"
+      ],
+      "#modules/*": [
+        "src/modules/*"
+      ],
+      "#utils/*": [
+        "src/utils/*"
+      ],
+      "#shares/*": [
+        "src/shares/*"
+      ],
+      "#services": [
+        "src/services"
+      ]
+    }
+  }
+}

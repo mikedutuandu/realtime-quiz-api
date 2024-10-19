@@ -1,0 +1,88 @@
+name: Deploy to PROD
+on:
+  #  create:
+  #    branches: [ main ]
+  #    tags:
+  #      - .*
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Tag to deploy'
+        required: false
+        default: 'v0.0.1'
+env:
+  AWS_REGION: ap-southeast-1
+  ECR_REPOSITORY: quiz-api
+  ECS_CLUSTER: QuizStack11-QuizEcsCluster7EDE3B5D-GI8mnEP14GkB
+  ECS_SERVICE: QuizStack11-QuizEcsService7029E1EC-Orx84Ju1doYr
+  ECS_SERVICE_CRON: QuizStack11-QuizEcsServiceCronService7914C767-MytYbCxuYwMh
+  ECS_TASK_DEFINITION: ./.github/workflows/task-definition-prod.json
+  ECS_TASK_DEFINITION_CRON: ./.github/workflows/task-definition-cron-prod.json
+  CONTAINER_NAME: quiz-api
+  CONTAINER_NAME_CRON: quiz-cron
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        if: ${{ github.event.inputs.tag != '' }}
+        with:
+          ref: ${{ github.event.inputs.tag }}
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Build, tag, and push image to Amazon ECR
+        id: build-image
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          IMAGE_TAG: ${{ github.event.inputs.tag }}
+        run: |
+          docker build --file ./Dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -t $ECR_REGISTRY/$ECR_REPOSITORY:latest .
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
+          echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+
+      - name: Fill in the new image ID in the Amazon ECS task definition
+        id: task-def
+        uses: aws-actions/amazon-ecs-render-task-definition@v1
+        with:
+          task-definition: ${{ env.ECS_TASK_DEFINITION }}
+          container-name: ${{ env.CONTAINER_NAME }}
+          image: ${{ steps.build-image.outputs.image }}
+
+      - name: Fill in the new image ID in the Amazon ECS task definition cron
+        id: task-def-cron
+        uses: aws-actions/amazon-ecs-render-task-definition@v1
+        with:
+          task-definition: ${{ env.ECS_TASK_DEFINITION_CRON }}
+          container-name: ${{ env.CONTAINER_NAME_CRON }}
+          image: ${{ steps.build-image.outputs.image }}
+
+      - name: Deploy Amazon ECS task definition
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+        with:
+          task-definition: ${{ steps.task-def.outputs.task-definition }}
+          service: ${{ env.ECS_SERVICE }}
+          cluster: ${{ env.ECS_CLUSTER }}
+          wait-for-service-stability: true
+
+      - name: Deploy Amazon ECS task definition cron
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+        with:
+          task-definition: ${{ steps.task-def-cron.outputs.task-definition }}
+          service: ${{ env.ECS_SERVICE_CRON }}
+          cluster: ${{ env.ECS_CLUSTER }}
+          wait-for-service-stability: true

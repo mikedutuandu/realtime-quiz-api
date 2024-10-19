@@ -1,0 +1,11 @@
+export const hasLength = (val): boolean => val?.length > 0;
+export const isFunction = (val): boolean => typeof val === 'function';
+export const isString = (val): boolean => typeof val === 'string';
+export const isStringFull = (val): boolean => isString(val) && hasLength(val);
+export const isPositiveInteger = (val): boolean => Number.isInteger(val) && val > 0;
+export const isNegativeInteger = (val): boolean => Number.isInteger(val) && val < 0;
+export const isStringNumber = (val): boolean => isString(val) && !isNaN(Number(val));
+export const isNull = (val): boolean => val === null;
+export const isUndefined = (val): boolean => val === undefined;
+export const isNullOrUndefined = (val): boolean => isNull(val) || isUndefined(val);
+export const isPromise = (val): boolean => isFunction(val?.then);
