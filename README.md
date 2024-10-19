@@ -134,8 +134,13 @@ swagger pass: 123456aA@
 - Aurora mysql for database
 - Swagger to document to api
 
-## Run on local
+## Run on local direct
 ```
   npm run install
   npm run start:dev
+```
+
+## Run on local by docker compose
+```
+  docker-compose -f docker-compose.yml up -d
 ```
