@@ -131,7 +131,7 @@ export class QuizService {
     } else {
       const quizLeaderboard = new QuizLeaderboard({ quizId: Number(dto.quizId), quizUserId: dto.userId, score: 0 });
       await this.quizLeaderboardRepository.save(quizLeaderboard);
-      await this.quizRepository.update({ id: Number(dto.quizId) }, { participants: quiz.participants + 1 });
+      await this.quizRepository.update({ id: Number(dto.quizId) }, { participants: Number(quiz.participants) + 1 });
     }
 
     return this.listQuizLeaderBoard(dto.quizId);
