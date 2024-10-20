@@ -24,7 +24,7 @@ export class QuizGateway {
     const leaderBoard = await this.quizService.joinQuiz(data);
     this.logger.log(`leaderBoard ${leaderBoard}`);
 
-    this.server.to(quizId).emit('answer-result', {
+    this.server.to(quizId).emit('realtime-result', {
       leaderboard: leaderBoard,
     });
   }
@@ -45,7 +45,7 @@ export class QuizGateway {
     const leaderBoard = await this.quizService.answerQuizQuestion(data);
     this.logger.log(`leaderBoard ${leaderBoard}`);
 
-    this.server.to(quizId).emit('answer-result', {
+    this.server.to(quizId).emit('realtime-result', {
       leaderboard: leaderBoard,
     });
   }
