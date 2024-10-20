@@ -5,6 +5,10 @@
 2. [Component Description](#2-component-description)
 3. [Data Flow](#3-data-flow)
 4. [Technologies and Tools](#4-technologies-and-tools)
+5. [Database Diagram](#5-database-diagram)
+6. [Advanced Features and Improvements](#6-advanced-features-and-improvements-planned-for-future-implementation)
+7. [Deployment](#7-deployment)
+8. [Demo Quiz Application](#8-demo-quiz-application)
 
 ## 1. Architecture Diagram
 
@@ -98,11 +102,27 @@
 ---
 
 
-## Database Diagram
+## 5. Database Diagram
 ![db-diagram.png](./doc/db-diagram.png "db-diagram.png")
 
+## 6. Advanced Features and Improvements (Planned for Future Implementation)
 
-## Deployment
+### 1. Authentication and Authorization
+* **User Registration & Login**: Allows users to register and log in using email and password. Implements JWT-based authentication for secure API access.
+* **Third-Party Login (OAuth 2.0)**: Supports Google and Facebook login for a seamless user experience.
+
+### 2. Admin Panel
+* **Quiz Management**: Admins can create, update, and delete quizzes easily through an intuitive interface.
+* **User Management**: View user details, reset passwords, and assign roles or permissions.
+* **Session & Leaderboard Management**: Monitor ongoing quiz sessions, forcefully close sessions if needed, and manage or reset leaderboards.
+* **Analytics & Reports**: Provides insights into user activity, most popular quizzes, and more. Supports CSV export of results and leaderboards.
+
+### 3. Redis Integration
+* **Session Caching**: Caches active quiz sessions for quick retrieval and improved response times.
+* **Real-Time Leaderboard**: Stores leaderboard data in Redis to ensure fast updates and retrieval.
+* **Rate Limiting**: Protects the system from abuse by limiting excessive API requests on critical routes.
+
+## 7. Deployment
 
 ### CI/CD 
 - Git action
@@ -121,7 +141,7 @@
 
 [Deployment guide to ECS AWS by CDK Typescript](cdk/README.md)
 
-## Demo quiz application
+## 8. Demo quiz application
 
 + API: https://quiz-api.mikedutuandu.com/
 + WEB APP: https://quiz-app.mikedutuandu.com/
