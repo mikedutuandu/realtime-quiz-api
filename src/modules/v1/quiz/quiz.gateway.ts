@@ -50,3 +50,35 @@ export class QuizGateway {
     });
   }
 }
+
+/*
+Sample for scaling websocket using redis
+
+@WebSocketGateway()
+export class ChatGateway {
+  constructor() {
+    this.redis = new Redis();
+    this.redisSub = new Redis();
+
+    // 1. Subscribe to Redis channel
+    this.redisSub.subscribe('chat:rooms');
+
+    // 2. THIS "message" is REDIS's event, not Socket.io's!
+    this.redisSub.on('message', (channel, message) => {
+      const data = JSON.parse(message);
+      // 3. We emit "chatMessage" (or any event name) to Socket.io clients
+      this.server.to(data.room).emit('chatMessage', data.msg);
+    });
+  }
+
+  // 4. Client sends to THIS Socket.io event
+  @SubscribeMessage('sendChat')  // <-- This is what client emits
+  async handleChat(client: Socket, payload: {room: string, message: string}) {
+    // 5. Publish to Redis channel
+    await this.redis.publish('chat:rooms', JSON.stringify({
+      room: payload.room,
+      msg: payload.message
+    }));
+  }
+}
+ */
