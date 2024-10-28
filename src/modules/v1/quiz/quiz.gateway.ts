@@ -65,6 +65,7 @@ export class ChatGateway {
 
     // 2. THIS "message" is REDIS's event, not Socket.io's!
     this.redisSub.on('message', (channel, message) => {
+      // channel is chat:rooms
       const data = JSON.parse(message);
       // 3. We emit "chatMessage" (or any event name) to Socket.io clients
       this.server.to(data.room).emit('chatMessage', data.msg);
